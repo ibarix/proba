@@ -1,0 +1,85 @@
+body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 1rem 0;
+    text-align: center;
+    width: 100%;
+}
+
+main {
+    max-width: 800px;
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+#scenario-area, #options-area, #feedback-area, #score-area {
+    padding: 15px;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+#score-area {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+button, .option-button {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover, .option-button:hover {
+    background-color: #0056b3;
+}
+
+#next-button {
+    background-color: #28a745; /* Green for start/next */
+}
+
+#next-button:hover {
+    background-color: #1e7e34;
+}
+
+.option-button {
+    background-color: #6c757d; /* Grey for options */
+    margin-bottom: 8px;
+}
+
+.option-button:hover {
+    background-color: #545b62;
+}
+
+#feedback-area.correct {
+    color: green;
+    border-color: green;
+}
+
+#feedback-area.incorrect {
+    color: red;
+    border-color: red;
+}
