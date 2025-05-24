@@ -13,89 +13,89 @@ let currentScenarioIndex = 0;
 // Array to hold game data (scenarios, questions, answers)
 const gameData = [
     {
-        scenario: "[HRVATSKI PRIJEVOD ZA: You receive an email with the subject 'Urgent: Action Required - Your University Account'. It claims suspicious activity was detected and asks you to click a link to verify your login credentials immediately. The sender's email address is 'admin@university-security-alerts.com' instead of the usual '@youruniversity.edu'.]",
-        question: "[HRVATSKI PRIJEVOD ZA: What is the safest action to take?]",
+        scenario: "Primate e-poruku s predmetom 'Hitno: Potrebna radnja - Vaš sveučilišni račun'. Tvrdi se da je otkrivena sumnjiva aktivnost i traži se da odmah kliknete na poveznicu kako biste potvrdili svoje pristupne podatke. E-mail adresa pošiljatelja je 'admin@university-security-alerts.com' umjesto uobičajene '@vasesveuciliste.hr'.",
+        question: "Koja je najsigurnija radnja koju treba poduzeti?",
         options: [
-            "[HRVATSKI PRIJEVOD ZA: Click the link and log in to secure your account quickly.]",
-            "[HRVATSKI PRIJEVOD ZA: Reply to the email asking for more information.]",
-            "[HRVATSKI PRIJEVOD ZA: Ignore the email; it's probably not important.]",
-            "[HRVATSKI PRIJEVOD ZA: Do not click the link. Open a new browser tab, go to the official university website, log in there, and check for any notifications. Report the email as phishing.]"
+            "Kliknite na poveznicu i prijavite se kako biste brzo osigurali svoj račun.",
+            "Odgovorite na e-poruku tražeći više informacija.",
+            "Ignorirajte e-poruku; vjerojatno nije važna.",
+            "Nemojte kliknuti na poveznicu. Otvorite novu karticu preglednika, idite na službenu web stranicu sveučilišta, tamo se prijavite i provjerite ima li obavijesti. Prijavite e-poruku kao phishing."
         ],
-        correctAnswer: "[HRVATSKI PRIJEVOD ZA: Do not click the link. Open a new browser tab, go to the official university website, log in there, and check for any notifications. Report the email as phishing.]",
-        feedback_correct: "[HRVATSKI PRIJEVOD ZA: Correct! This is likely a phishing attempt. Scammers create fake urgency and use slightly off email addresses. Always access sensitive accounts through official websites or apps directly, not through links in unsolicited emails. Reporting it helps protect others.]",
-        feedback_incorrect: "[HRVATSKI PRIJEVOD ZA: Incorrect. Clicking links or replying to phishing emails can expose your credentials or lead to malware. Always verify directly with the institution through their official contact channels, not the ones provided in a suspicious email.]"
+        correctAnswer: "Nemojte kliknuti na poveznicu. Otvorite novu karticu preglednika, idite na službenu web stranicu sveučilišta, tamo se prijavite i provjerite ima li obavijesti. Prijavite e-poruku kao phishing.",
+        feedback_correct: "Točno! Ovo je vjerojatno pokušaj krađe identiteta (phishing). Prevaranti stvaraju lažni osjećaj hitnosti i koriste malo izmijenjene adrese e-pošte. Uvijek pristupajte osjetljivim računima izravno putem službenih web stranica ili aplikacija, a ne putem poveznica u neželjenim e-porukama. Prijavljivanjem pomažete u zaštiti drugih.",
+        feedback_incorrect: "Netočno. Klikanje na poveznice ili odgovaranje na phishing e-poruke može izložiti vaše pristupne podatke ili dovesti do zlonamjernog softvera. Uvijek provjeravajte izravno s institucijom putem njihovih službenih kontaktnih kanala, a ne onih navedenih u sumnjivoj e-poruci."
     },
     {
-        scenario: "[HRVATSKI PRIJEVOD ZA: A new friend request appears on your favorite social media platform from someone who looks familiar, but you don't quite remember them. Their profile has very few posts, mostly recent, and a low friend count. Soon after you accept, they message you asking for your phone number and home address because they 'lost their contacts' and want to send you something.]",
-        question: "[HRVATSKI PRIJEVOD ZA: How should you respond to this message?]",
+        scenario: "Na vašoj omiljenoj društvenoj mreži pojavljuje se novi zahtjev za prijateljstvo od nekoga tko vam izgleda poznato, ali ga se ne sjećate baš. Njegov profil ima vrlo malo objava, uglavnom nedavnih, i mali broj prijatelja. Ubrzo nakon što prihvatite, pošalje vam poruku tražeći vaš broj telefona i kućnu adresu jer je 'izgubio kontakte' i želi vam nešto poslati.",
+        question: "Kako biste trebali odgovoriti na ovu poruku?",
         options: [
-            "[HRVATSKI PRIJEVOD ZA: Provide the information; they seem nice and it's just a phone number and address.]",
-            "[HRVATSKI PRIJEVOD ZA: Ask them more questions to try and figure out who they are.]",
-            "[HRVATSKI PRIJEVOD ZA: Politely decline to share the information and consider removing them as a friend.]",
-            "[HRVATSKI PRIJEVOD ZA: Give them a fake phone number and address to see what they do.]"
+            "Dajte informacije; čini se drag i to je samo broj telefona i adresa.",
+            "Postavite mu više pitanja kako biste pokušali shvatiti tko je on.",
+            "Ljubazno odbijte podijeliti informacije i razmislite o tome da ga uklonite kao prijatelja.",
+            "Dajte mu lažni broj telefona i adresu da vidite što će učiniti."
         ],
-        correctAnswer: "[HRVATSKI PRIJEVOD ZA: Politely decline to share the information and consider removing them as a friend.]",
-        feedback_correct: "[HRVATSKI PRIJEVOD ZA: Correct! This could be a fake profile or a compromised account. Be cautious about sharing personal information online, especially with new or unverified contacts. It's okay to decline and protect your privacy. Look for red flags like sparse profiles.]",
-        feedback_incorrect: "[HRVATSKI PRIJEVOD ZA: Incorrect. Sharing personal details like your phone number and address with unverified online contacts is risky. Even asking too many questions can sometimes reveal information. It's best to err on the side of caution with new online 'friends'.]"
+        correctAnswer: "Ljubazno odbijte podijeliti informacije i razmislite o tome da ga uklonite kao prijatelja.",
+        feedback_correct: "Točno! Ovo bi mogao biti lažni profil ili kompromitirani račun. Budite oprezni pri dijeljenju osobnih podataka na mreži, posebno s novim ili neprovjerenim kontaktima. U redu je odbiti i zaštititi svoju privatnost. Pazite na crvene zastavice poput oskudnih profila.",
+        feedback_incorrect: "Netočno. Dijeljenje osobnih podataka poput broja telefona i adrese s neprovjerenim internetskim kontaktima je rizično. Čak i postavljanje previše pitanja ponekad može otkriti informacije. Najbolje je biti oprezan s novim internetskim 'prijateljima'."
     },
     {
-        scenario: "[HRVATSKI PRIJEVOD ZA: You're signing up for a new online forum related to one of your hobbies. When creating your account, it asks for a username and password. You're tempted to use the same password you use for your email and online banking to make it easier to remember.]",
-        question: "[HRVATSKI PRIJEVOD ZA: What is the best practice for creating a password for this new forum?]",
+        scenario: "Prijavljujete se na novi internetski forum vezan za jedan od vaših hobija. Prilikom izrade računa traži se korisničko ime i lozinka. U iskušenju ste da koristite istu lozinku koju koristite za svoju e-poštu i internetsko bankarstvo kako biste je lakše zapamtili.",
+        question: "Koja je najbolja praksa za stvaranje lozinke za ovaj novi forum?",
         options: [
-            "[HRVATSKI PRIJEVOD ZA: Use the same password as your email and banking for convenience.]",
-            "[HRVATSKI PRIJEVOD ZA: Use a slightly different version of your common password (e.g., adding a '1' at the end).]",
-            "[HRVATSKI PRIJEVOD ZA: Create a strong, unique password for this forum, ideally using a password manager to store it.]",
-            "[HRVATSKI PRIJEVOD ZA: Use a very simple, easy-to-guess password because the forum isn't important.]"
+            "Koristite istu lozinku kao za e-poštu i bankarstvo radi praktičnosti.",
+            "Koristite malo drugačiju verziju svoje uobičajene lozinke (npr. dodavanjem '1' na kraju).",
+            "Stvorite jaku, jedinstvenu lozinku za ovaj forum, idealno koristeći upravitelj lozinki za njeno pohranjivanje.",
+            "Koristite vrlo jednostavnu, lako pogodivu lozinku jer forum nije važan."
         ],
-        correctAnswer: "[HRVATSKI PRIJEVOD ZA: Create a strong, unique password for this forum, ideally using a password manager to store it.]",
-        feedback_correct: "[HRVATSKI PRIJEVOD ZA: Correct! Using unique, strong passwords for each account is crucial. If one site is breached, your other accounts remain safe. Password managers can generate and store complex passwords, making this practice much easier.]",
-        feedback_incorrect: "[HRVATSKI PRIJEVOD ZA: Incorrect. Reusing passwords, even with minor variations, is a major security risk. If a less secure site like a forum is breached and you've reused your password, attackers can try that password on more sensitive accounts like email or banking.]"
+        correctAnswer: "Stvorite jaku, jedinstvenu lozinku za ovaj forum, idealno koristeći upravitelj lozinki za njeno pohranjivanje.",
+        feedback_correct: "Točno! Korištenje jedinstvenih, jakih lozinki za svaki račun je ključno. Ako je jedna stranica probijena, vaši drugi računi ostaju sigurni. Upravitelji lozinki mogu generirati i pohranjivati složene lozinke, čineći ovu praksu mnogo lakšom.",
+        feedback_incorrect: "Netočno. Ponovno korištenje lozinki, čak i s manjim varijacijama, veliki je sigurnosni rizik. Ako je manje sigurna stranica poput foruma probijena, a vi ste ponovno koristili svoju lozinku, napadači mogu isprobati tu lozinku na osjetljivijim računima poput e-pošte ili bankarstva."
     },
     {
-        scenario: "[HRVATSKI PRIJEVOD ZA: You're at a local coffee shop and connect to their free public Wi-Fi to check your bank balance and pay a bill online. The Wi-Fi network is open and doesn't require a password.]",
-        question: "[HRVATSKI PRIJEVOD ZA: What is the main security concern with this action?]",
+        scenario: "Nalazite se u lokalnom kafiću i spajate se na njihovu besplatnu javnu Wi-Fi mrežu kako biste provjerili stanje bankovnog računa i platili račun putem interneta. Wi-Fi mreža je otvorena i ne zahtijeva lozinku.",
+        question: "Koji je glavni sigurnosni problem ove radnje?",
         options: [
-            "[HRVATSKI PRIJEVOD ZA: The Wi-Fi might be slow, making the transaction take longer.]",
-            "[HRVATSKI PRIJEVOD ZA: Someone could easily intercept your data on an unsecured public Wi-Fi network.]",
-            "[HRVATSKI PRIJEVOD ZA: You might get distracted and make a mistake with the payment.]",
-            "[HRVATSKI PRIJEVOD ZA: There's no concern; public Wi-Fi is generally safe for these activities.]"
+            "Wi-Fi bi mogao biti spor, pa će transakcija trajati duže.",
+            "Netko bi lako mogao presresti vaše podatke na nezaštićenoj javnoj Wi-Fi mreži.",
+            "Mogli biste se omesti i pogriješiti prilikom plaćanja.",
+            "Nema brige; javni Wi-Fi je općenito siguran za ove aktivnosti."
         ],
-        correctAnswer: "[HRVATSKI PRIJEVOD ZA: Someone could easily intercept your data on an unsecured public Wi-Fi network.]",
-        feedback_correct: "[HRVATSKI PRIJEVOD ZA: Correct! Unsecured public Wi-Fi networks are risky for sensitive transactions. Attackers can intercept data sent over these networks. It's best to use a VPN or wait until you have a secure, trusted internet connection (like your home Wi-Fi or mobile data) for banking.]",
-        feedback_incorrect: "[HRVATSKI PRIJEVOD ZA: Incorrect. The primary risk of using open public Wi-Fi for sensitive information like banking is data interception by malicious actors, not slow speeds or distractions. Always assume public Wi-Fi is not secure.]"
+        correctAnswer: "Netko bi lako mogao presresti vaše podatke na nezaštićenoj javnoj Wi-Fi mreži.",
+        feedback_correct: "Točno! Nezaštićene javne Wi-Fi mreže rizične su za osjetljive transakcije. Napadači mogu presresti podatke poslane preko tih mreža. Najbolje je koristiti VPN ili pričekati dok ne budete imali sigurnu, pouzdanu internetsku vezu (poput kućnog Wi-Fi-ja ili mobilnih podataka) za bankarstvo.",
+        feedback_incorrect: "Netočno. Primarni rizik korištenja otvorene javne Wi-Fi mreže za osjetljive informacije poput bankarstva je presretanje podataka od strane zlonamjernih aktera, a ne spore brzine ili ometanja. Uvijek pretpostavite da javni Wi-Fi nije siguran."
     },
     {
-        scenario: "[HRVATSKI PRIJEVOD ZA: You're browsing an online store you've never used before. The prices are incredibly low, almost too good to be true. You notice the website URL starts with 'http://' instead of 'https://', and there are a few grammatical errors in the product descriptions.]",
-        question: "[HRVATSKI PRIJEVOD ZA: What should these signs indicate to you?]",
+        scenario: "Pregledavate internetsku trgovinu koju nikada prije niste koristili. Cijene su nevjerojatno niske, gotovo predobre da bi bile istinite. Primjećujete da URL web stranice počinje s 'http://' umjesto 'https://', a u opisima proizvoda ima nekoliko gramatičkih pogrešaka.",
+        question: "Što bi vam ovi znakovi trebali ukazivati?",
         options: [
-            "[HRVATSKI PRIJEVOD ZA: You've found a great bargain and should buy quickly before the deals are gone.]",
-            "[HRVATSKI PRIJEVOD ZA: The website is likely new and still working out some minor issues.]",
-            "[HRVATSKI PRIJEVOD ZA: These are red flags for a potentially unsafe or fraudulent website; you should avoid making a purchase.]",
-            "[HRVATSKI PRIJEVOD ZA: You should contact their customer service to ask about the HTTPS and errors.]"
+            "Pronašli ste sjajnu ponudu i trebali biste brzo kupiti prije nego što ponude nestanu.",
+            "Web stranica je vjerojatno nova i još uvijek rješava neke manje probleme.",
+            "Ovo su crvene zastavice za potencijalno nesigurnu ili lažnu web stranicu; trebali biste izbjegavati kupnju.",
+            "Trebali biste kontaktirati njihovu korisničku službu kako biste pitali o HTTPS-u i pogreškama."
         ],
-        correctAnswer: "[HRVATSKI PRIJEVOD ZA: These are red flags for a potentially unsafe or fraudulent website; you should avoid making a purchase.]",
-        feedback_correct: "[HRVATSKI PRIJEVOD ZA: Correct! Lack of HTTPS (the 's' indicates a secure connection), very low prices, and poor grammar are common signs of scam websites. Your financial information would not be secure, and you might not receive the products. Trust your instincts if a site feels off.]",
-        feedback_incorrect: "[HRVATSKI PRIJEVOD ZA: Incorrect. While contacting customer service is an option, the combination of these red flags (especially no HTTPS for a store) strongly suggests you should not trust the site with your payment information or expect legitimate products.]"
+        correctAnswer: "Ovo su crvene zastavice za potencijalno nesigurnu ili lažnu web stranicu; trebali biste izbjegavati kupnju.",
+        feedback_correct: "Točno! Nedostatak HTTPS-a ('s' označava sigurnu vezu), vrlo niske cijene i loša gramatika uobičajeni su znakovi prevarantskih web stranica. Vaši financijski podaci ne bi bili sigurni i možda nećete primiti proizvode. Vjerujte svojim instinktima ako vam se stranica čini sumnjivom.",
+        feedback_incorrect: "Netočno. Iako je kontaktiranje korisničke službe opcija, kombinacija ovih crvenih zastavica (posebno nedostatak HTTPS-a za trgovinu) snažno sugerira da ne biste trebali vjerovati stranici sa svojim podacima o plaćanju niti očekivati legitimne proizvode."
     },
     {
-        scenario: "[HRVATSKI PRIJEVOD ZA: You receive a notification on your phone that your password for a social media app was successfully changed. However, you didn't change it. You also remember using that same password for several other online accounts.]",
-        question: "[HRVATSKI PRIJEVOD ZA: What is the most important first step to take?]",
+        scenario: "Na telefonu primate obavijest da je vaša lozinka za aplikaciju društvene mreže uspješno promijenjena. Međutim, vi je niste promijenili. Također se sjećate da ste istu lozinku koristili za nekoliko drugih internetskih računa.",
+        question: "Koji je najvažniji prvi korak koji treba poduzeti?",
         options: [
-            "[HRVATSKI PRIJEVOD ZA: Ignore it, it might be a system glitch.]",
-            "[HRVATSKI PRIJEVOD ZA: Immediately try to log into the affected social media account and change the password back. Then, change the passwords on ALL other accounts that used the same or similar password.]",
-            "[HRVATSKI PRIJEVOD ZA: Delete the social media app from your phone.]",
-            "[HRVATSKI PRIJEVOD ZA: Post on social media asking if anyone else got a similar notification.]"
+            "Ignorirajte, možda je greška u sustavu.",
+            "Odmah pokušajte se prijaviti na pogođeni račun društvene mreže i promijeniti lozinku natrag. Zatim promijenite lozinke na SVIM drugim računima koji su koristili istu ili sličnu lozinku.",
+            "Izbrišite aplikaciju društvene mreže s telefona.",
+            "Objavite na društvenim mrežama pitajući je li još netko dobio sličnu obavijest."
         ],
-        correctAnswer: "[HRVATSKI PRIJEVOD ZA: Immediately try to log into the affected social media account and change the password back. Then, change the passwords on ALL other accounts that used the same or similar password.]",
-        feedback_correct: "[HRVATSKI PRIJEVOD ZA: Correct! This is a sign your account may be compromised. Prioritize regaining control of the affected account and then immediately change passwords on all other services where you used the same or similar password to prevent further unauthorized access. Enable two-factor authentication wherever possible.]",
-        feedback_incorrect: "[HRVATSKI PRIJEVOD ZA: Incorrect. Ignoring such a notification or simply deleting the app doesn't address the potential compromise of your account or the risk to other accounts using the same password. Swift action to secure your accounts is key.]"
+        correctAnswer: "Odmah pokušajte se prijaviti na pogođeni račun društvene mreže i promijeniti lozinku natrag. Zatim promijenite lozinke na SVIM drugim računima koji su koristili istu ili sličnu lozinku.",
+        feedback_correct: "Točno! Ovo je znak da je vaš račun možda ugrožen. Prioritetno vratite kontrolu nad pogođenim računom, a zatim odmah promijenite lozinke na svim drugim uslugama gdje ste koristili istu ili sličnu lozinku kako biste spriječili daljnji neovlašteni pristup. Omogućite dvofaktorsku provjeru autentičnosti gdje god je to moguće.",
+        feedback_incorrect: "Netočno. Ignoriranje takve obavijesti ili jednostavno brisanje aplikacije ne rješava potencijalnu ugrozu vašeg računa niti rizik za druge račune koji koriste istu lozinku. Brza akcija za osiguranje vaših računa je ključna."
     }
 ];
 
 // Function to display a scenario
 function displayScenario(scenarioIndex) {
     if (scenarioIndex >= gameData.length) {
-        scenarioArea.innerHTML = `<h2>[HRVATSKI PRIJEVOD ZA: Game Over!]</h2><p>[HRVATSKI PRIJEVOD ZA: You have completed all scenarios.]</p><p>[HRVATSKI PRIJEVOD ZA: Your final score is:] ${currentScore} [HRVATSKI PRIJEVOD ZA: out of] ${gameData.length}</p>`;
+        scenarioArea.innerHTML = `<h2>Kraj igre!</h2><p>Završili ste sve scenarije.</p><p>Vaš konačni rezultat je: ${currentScore} od ${gameData.length}</p>`;
         optionsArea.innerHTML = "";
         feedbackArea.innerHTML = "";
         feedbackArea.style.display = 'none';
@@ -118,7 +118,7 @@ function displayScenario(scenarioIndex) {
         optionsArea.appendChild(button);
     });
 
-    nextButton.textContent = "[HRVATSKI PRIJEVOD ZA: Next Question]";
+    nextButton.textContent = "Sljedeće pitanje";
     nextButton.style.display = 'none'; 
 }
 
@@ -133,7 +133,7 @@ function checkAnswer(selectedOption, scenarioIndex) {
         feedbackArea.textContent = currentScenario.feedback_correct;
         feedbackArea.classList.add('correct'); 
         currentScore++;
-        scoreArea.textContent = `[HRVATSKI PRIJEVOD ZA: Score:] ${currentScore}`;
+        scoreArea.textContent = `Bodovi: ${currentScore}`;
     } else {
         feedbackArea.textContent = currentScenario.feedback_incorrect;
         feedbackArea.classList.add('incorrect');
@@ -145,10 +145,10 @@ function checkAnswer(selectedOption, scenarioIndex) {
     });
 
     if (currentScenarioIndex < gameData.length -1) {
-        nextButton.textContent = "[HRVATSKI PRIJEVOD ZA: Next Question]";
+        nextButton.textContent = "Sljedeće pitanje";
         nextButton.style.display = 'block';
     } else {
-        nextButton.textContent = "[HRVATSKI PRIJEVOD ZA: Finish Game]";
+        nextButton.textContent = "Završi igru";
         nextButton.style.display = 'block';
     }
 }
@@ -167,10 +167,7 @@ function handleNextButtonClick() {
 function startGame() {
     currentScore = 0;
     currentScenarioIndex = 0;
-    // Initial text in HTML: <section id="score-area">[HRVATSKI PRIJEVOD ZA: Score:] 0</section>
-    // Initial text in HTML: <button id="next-button">[HRVATSKI PRIJEVOD ZA: Start Game]</button>
-    // These initial HTML texts were updated in index.html.
-    scoreArea.textContent = `[HRVATSKI PRIJEVOD ZA: Score:] ${currentScore}`;
+    scoreArea.textContent = `Bodovi: ${currentScore}`;
     feedbackArea.innerHTML = "";
     feedbackArea.style.display = 'none';
     
@@ -179,7 +176,7 @@ function startGame() {
     nextButton.removeEventListener('click', startGame);
     nextButton.addEventListener('click', handleNextButtonClick);
     
-    nextButton.textContent = "[HRVATSKI PRIJEVOD ZA: Next Question]";
+    nextButton.textContent = "Sljedeće pitanje";
     nextButton.style.display = 'none';
 }
 
@@ -190,7 +187,5 @@ if (nextButton) {
 }
 
 if (scoreArea) {
-    // This updates the score on initial load. The HTML already has the placeholder.
-    // So, this should also use the placeholder for "Score: ".
-    scoreArea.textContent = `[HRVATSKI PRIJEVOD ZA: Score:] ${currentScore}`;
+    scoreArea.textContent = `Bodovi: ${currentScore}`;
 }
