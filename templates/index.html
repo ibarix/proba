@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Šahovski turnir</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab('players')">Igrači</button>
+        <button class="tab-button" onclick="openTab('tournament')">Turnir</button>
+    </div>
+
+    <div id="players" class="tab-content active">
+        <h2>Upravljanje igračima</h2>
+        <form id="add-player-form">
+            <input type="text" id="first-name" placeholder="Ime" required>
+            <input type="text" id="last-name" placeholder="Prezime" required>
+            <input type="number" id="elo" placeholder="ELO (default 600)" value="600">
+            <button type="submit">Dodaj igrača</button>
+        </form>
+        <hr>
+        <h3>Popis igrača</h3>
+        <table id="player-list">
+            <thead>
+                <tr>
+                    <th>Ime</th>
+                    <th>Prezime</th>
+                    <th>ELO</th>
+                    <th>Akcije</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Popis igrača će se dinamički dodavati ovdje -->
+            </tbody>
+        </table>
+    </div>
+
+    <div id="tournament" class="tab-content">
+        <h2>Turnir</h2>
+        <button id="pair-button">Generiraj parove za 1. rundu</button>
+        <hr>
+        <h3>Parovi</h3>
+        <div id="pairings">
+            <!-- Parovi će se dinamički dodavati ovdje -->
+        </div>
+        <hr>
+        <h3>Poredak</h3>
+        <table id="standings">
+            <thead>
+                <tr>
+                    <th>Poz.</th>
+                    <th>Igrač</th>
+                    <th>Bodovi</th>
+                    <th>Pob.</th>
+                    <th>Ner.</th>
+                    <th>Por.</th>
+                    <th>ELO</th>
+                    <th>Novi ELO</th>
+                    <th>Buchholz</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Poredak će se dinamički dodavati ovdje -->
+            </tbody>
+        </table>
+        <hr>
+        <button id="export-button">Eksportiraj u CSV</button>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
