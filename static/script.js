@@ -36,15 +36,45 @@ async function loadTournamentData() {
 function renderPlayers() {
     const playerList = document.getElementById('player-list').getElementsByTagName('tbody')[0];
     playerList.innerHTML = '';
+    const tournamentStarted = tournamentData.rounds && tournamentData.rounds.length > 0;
+
     tournamentData.players.forEach(player => {
         const row = playerList.insertRow();
+
+        let actionButton = '';
+        if (player.status === 'active') {
+            if (tournamentStarted) {
+                actionButton = `<button onclick="withdrawPlayer(${player.id})">Povuci</button>`;
+            } else {
+                actionButton = `<button onclick="deletePlayer(${player.id})">Obriši</button>`;
+            }
+        }
+
         row.innerHTML = `
             <td>${player.first_name}</td>
             <td>${player.last_name}</td>
             <td>${player.elo}</td>
-            <td><button onclick="deletePlayer(${player.id})">Obriši</button></td>
+            <td>${actionButton}</td>
         `;
+
+        if (player.status === 'withdrawn') {
+            row.classList.add('withdrawn');
+        }
     });
+}
+
+async function withdrawPlayer(playerId) {
+    if (confirm('Jeste li sigurni da želite povući ovog igrača s turnira?')) {
+        const response = await fetch(`/api/players/${playerId}/withdraw`, {
+            method: 'POST',
+        });
+        if (response.ok) {
+            loadTournamentData();
+        } else {
+            const error = await response.json();
+            alert(`Greška: ${error.error}`);
+        }
+    }
 }
 
 function renderStandings() {
@@ -67,6 +97,10 @@ function renderStandings() {
             <td>${player.new_elo}</td>
             <td>${player.buchholz.toFixed(2)}</td>
         `;
+
+        if (player.status === 'withdrawn') {
+            row.classList.add('withdrawn');
+        }
     });
 }
 

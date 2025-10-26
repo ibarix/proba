@@ -47,7 +47,8 @@ def add_player():
         'buchholz': 0,
         'wins': 0,
         'draws': 0,
-        'losses': 0
+        'losses': 0,
+        'status': 'active'  # active, withdrawn
     }
     data['players'].append(new_player)
     save_data(data)
@@ -56,16 +57,73 @@ def add_player():
 @app.route('/api/players/<int:player_id>', methods=['DELETE'])
 def delete_player(player_id):
     data = load_data()
+    # Brisanje je dozvoljeno samo ako turnir još nije počeo
+    if data.get('rounds'):
+        return jsonify({'error': 'Nije moguće obrisati igrača nakon početka turnira. Koristite opciju "Povuci".'}), 400
+
     data['players'] = [p for p in data['players'] if p['id'] != player_id]
     save_data(data)
     return '', 204
 
+@app.route('/api/players/<int:player_id>/withdraw', methods=['POST'])
+def withdraw_player(player_id):
+    data = load_data()
+    player = next((p for p in data['players'] if p['id'] == player_id), None)
+    if not player:
+        return jsonify({'error': 'Igrač nije pronađen'}), 404
+
+    player['status'] = 'withdrawn'
+
+    # Ako je igrač u trenutnoj rundi, daj pobjedu protivniku
+    if data.get('rounds'):
+        last_round = data['rounds'][-1]
+        pairing = next((p for p in last_round['pairings'] if player_id in (p['white'], p.get('black')) and p['result'] is None), None)
+
+        if pairing:
+            opponent_id = pairing['black'] if pairing['white'] == player_id else pairing['white']
+            if opponent_id:
+                opponent = next((p for p in data['players'] if p['id'] == opponent_id), None)
+
+                # Odredi tko je bio bijeli, tko crni
+                white_player = player if player_id == pairing['white'] else opponent
+                black_player = opponent if player_id == pairing['white'] else player
+
+                result = '0-1' if white_player['id'] == player_id else '1-0'
+                pairing['result'] = result
+
+                # Ažuriraj bodove, statistiku i ELO
+                if result == '1-0':
+                    white_player.setdefault('points', 0)
+                    white_player['points'] += 1
+                    white_player.setdefault('wins', 0)
+                    white_player['wins'] += 1
+                    black_player.setdefault('losses', 0)
+                    black_player['losses'] += 1
+                else: # 0-1
+                    black_player.setdefault('points', 0)
+                    black_player['points'] += 1
+                    black_player.setdefault('wins', 0)
+                    black_player['wins'] += 1
+                    white_player.setdefault('losses', 0)
+                    white_player['losses'] += 1
+
+                new_elo_white, new_elo_black = calculate_elo(white_player['new_elo'], black_player['new_elo'], result)
+                white_player['new_elo'] = new_elo_white
+                black_player['new_elo'] = new_elo_black
+
+                white_player['opponents'].append(black_player['id'])
+                black_player['opponents'].append(white_player['id'])
+
+    save_data(data)
+    return jsonify(player)
+
 def pair_round(players):
-    players.sort(key=lambda p: (-p['points'], -p['elo']))
+    active_players = [p for p in players if p.get('status', 'active') == 'active']
+    active_players.sort(key=lambda p: (-p['points'], -p['elo']))
 
     pairings = []
     paired_players = set()
-    players_to_pair = list(players)
+    players_to_pair = list(active_players)
 
     # Handle bye for odd number of players
     if len(players_to_pair) % 2 != 0:
@@ -93,28 +151,35 @@ def pair_round(players):
         bye_player['wins'] += 1
         bye_player['opponents'].append(None) # Mark bye
 
-    # The rest of the pairing logic for the players who did not get a bye
-    players_for_pairing_loop = [p for p in players if p['id'] not in paired_players]
+    # The rest of the pairing logic
+    unpaired_players = [p for p in players_to_pair if p['id'] not in paired_players]
 
-    for i in range(len(players_for_pairing_loop)):
-        player1 = players_for_pairing_loop[i]
-        if player1['id'] in paired_players:
-            continue
+    while len(unpaired_players) >= 2:
+        player1 = unpaired_players.pop(0)
 
-        for j in range(i + 1, len(players_for_pairing_loop)):
-            player2 = players_for_pairing_loop[j]
-            if player2['id'] in paired_players:
-                continue
-
-            if player2['id'] not in player1['opponents']:
+        # Find a suitable opponent
+        opponent_found = False
+        for i in range(len(unpaired_players)):
+            player2 = unpaired_players[i]
+            if player2['id'] not in player1.get('opponents', []):
                 pairings.append({
                     'white': player1['id'],
                     'black': player2['id'],
                     'result': None
                 })
-                paired_players.add(player1['id'])
-                paired_players.add(player2['id'])
+                unpaired_players.pop(i)
+                opponent_found = True
                 break
+
+        if not opponent_found:
+            # Fallback in case no opponent can be found (should be rare)
+            # For simplicity, we pair with the next available player
+            player2 = unpaired_players.pop(0)
+            pairings.append({
+                'white': player1['id'],
+                'black': player2['id'],
+                'result': None
+            })
 
     return pairings
 
